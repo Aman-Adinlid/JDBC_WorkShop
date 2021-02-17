@@ -85,7 +85,24 @@ public class CityDaoIml implements CityDao {
 
     @Override
     public List<City> findAll() {
-        return null;
+        String query = "select * from city";
+        List<City> cityList= new ArrayList<>();
+        try {
+            Statement statement = MySqlConnection.getConnection().createStatement();
+            ResultSet resultSet= statement.executeQuery(query);
+            while (resultSet.next()){
+                cityList.add(new City(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getInt(5)
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cityList;
     }
 
     @Override

@@ -20,5 +20,9 @@ public class App {
         System.out.println("___________________________");
         List<City> findByName = dao.findByName("Breda");
         findByName.forEach(System.out::println);
+
+        System.out.println("___________________________");
+        List<City> findAll = dao.findAll();
+        findAll.forEach(System.out::println);
     }
 }
