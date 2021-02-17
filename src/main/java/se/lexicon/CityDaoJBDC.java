@@ -3,16 +3,37 @@ package se.lexicon;
 import se.lexicon.DaoPackage.CityDao;
 import se.lexicon.model.City;
 
-import java.sql.Connection;
+import java.sql.*;
 import java.util.List;
 
 public class CityDaoJBDC implements CityDao {
 
+    private Connection mySqlConnection() {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/world", "root", "1234");
+            Statement statement = connection.createStatement();
+            String selectAllCities = "select id,name,population from city";
+            ResultSet resultSet = statement.executeQuery(selectAllCities);
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String population = resultSet.getString("population");
+                System.out.println("Id: " + id + " Name: " + name + " Population: " + population);
+            }
+            System.out.println("Connection is established");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
 
     @Override
     public City findById(int id) {
-        return null;
+        Connection connection = mySqlConnection();
+
+
     }
+
+
 
     @Override
     public List<City> findByCode(String code) {
