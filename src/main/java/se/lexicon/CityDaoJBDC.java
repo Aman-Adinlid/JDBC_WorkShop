@@ -1,5 +1,9 @@
 package se.lexicon;
 
+import se.lexicon.DaoPackage.CityDao;
+import se.lexicon.model.City;
+
+import java.sql.Connection;
 import java.util.List;
 
 public class CityDaoJBDC implements CityDao {
