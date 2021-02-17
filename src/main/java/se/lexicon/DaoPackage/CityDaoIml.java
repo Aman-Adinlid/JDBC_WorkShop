@@ -5,6 +5,7 @@ import se.lexicon.DaoPackage.db.MySqlConnection;
 import se.lexicon.model.City;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CityDaoIml implements CityDao {
@@ -34,7 +35,27 @@ public class CityDaoIml implements CityDao {
 
     @Override
     public List<City> findByCode(String code) {
-        return null;
+        String query = "select * from city where CountryCode = ?";
+        List<City> cityList = new ArrayList<>();
+        try (
+                PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
+        ) {
+            preparedStatement.setString(1, code);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                cityList.add(new City(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getInt(5)
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cityList;
     }
 
     @Override
