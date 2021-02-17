@@ -24,17 +24,28 @@ public class CityDaoJBDC implements CityDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        return null;
+    }
 
     @Override
     public City findById(int id) {
+
         Connection connection = mySqlConnection();
+        String query = "select * from city where id like '" + id + "'";
+        try (
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+        ) {
+            while (resultSet.next()) {
+                System.out.println(resultSet.getInt("id") +id);
+            }
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
+        return null;
     }
-
-
-
     @Override
     public List<City> findByCode(String code) {
         return null;
