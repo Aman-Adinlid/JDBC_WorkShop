@@ -60,8 +60,28 @@ public class CityDaoIml implements CityDao {
 
     @Override
     public List<City> findByName(String name) {
-        return null;
+        String query = "select * from city where name = ?";
+        List<City> city = new ArrayList<>();
+        try (
+                PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
+        ) {
+            preparedStatement.setString(1, name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                city.add(new City(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getInt(5)
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return city;
     }
+
 
     @Override
     public List<City> findAll() {
