@@ -32,6 +32,10 @@ public class App {
 
 
         System.out.println("___________________________");
+        City updateCity = new City("Gaza", "PSE", "Gaza", 353632);
+        City updatedCity = dao.update(updateCity);
+        System.out.println(updatedCity);
+
 
     }
 }

@@ -126,25 +126,25 @@ public class CityDaoIml implements CityDao {
 
     @Override
     public City update(City city) {
-        String query = "update * from city ";
-        City city1 = new City();
+        String query = "update city set name=?, countryCode=?, district=?, population=? where id= ?";
         try (
                 PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
 
         ) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                city.setId(resultSet.getInt(1));
-                city.setName(resultSet.getString(2));
-                city.setCountryCode(resultSet.getString(3));
-                city.setDistrict(resultSet.getString(4));
-                city.setPopulation(resultSet.getInt(5));
-            }
+            preparedStatement.setInt(1, city.getId());
+            preparedStatement.setString(2, city.getName());
+            preparedStatement.setString(3, city.getCountryCode());
+            preparedStatement.setString(4, city.getDistrict());
+            preparedStatement.setInt(5, city.getPopulation());
+
+            int resultSet = preparedStatement.executeUpdate();
+            System.out.println((resultSet == 1) ? "City updated to database" : "updated is not working");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return city1;
+        return city;
     }
 
     @Override
