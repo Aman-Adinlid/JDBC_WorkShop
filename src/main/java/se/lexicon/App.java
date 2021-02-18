@@ -24,5 +24,14 @@ public class App {
         System.out.println("___________________________");
         List<City> findAll = dao.findAll();
         findAll.forEach(System.out::println);
+
+        System.out.println("___________________________");
+        City addCity = new City("Gaza", "PSE", "Gaza", 353632);
+        City insertCity = dao.add(addCity);
+        System.out.println("insertCity = " + insertCity);
+
+
+        System.out.println("___________________________");
+
     }
 }
