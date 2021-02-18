@@ -149,13 +149,14 @@ public class CityDaoIml implements CityDao {
 
     @Override
     public int delete(City city) {
-
-        String query = "delete * from city where id = ?";
+        String query = "delete from city where id= ?";
         try (
                 PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
         ) {
-            int result = preparedStatement.executeUpdate();
-            System.out.println("delete result: " + result);
+            preparedStatement.setInt(1, city.getId());
+            int resultSet = preparedStatement.executeUpdate();
+            System.out.println((resultSet == 1) ? "City deleted from database" : "City not deleted");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

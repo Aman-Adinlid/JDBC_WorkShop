@@ -36,6 +36,10 @@ public class App {
         City updatedCity = dao.update(updateCity);
         System.out.println(updatedCity);
 
+        System.out.println("___________________________");
+        City deleteCity = new City("Gaza", "PSE", "Gaza", 353632);
+        int delete = dao.delete(deleteCity);
+        System.out.println("delete = " + delete);
 
     }
 }
